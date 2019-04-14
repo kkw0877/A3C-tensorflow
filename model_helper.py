@@ -116,3 +116,24 @@ def create_rnn_cell(num_layers, cell_type, num_units, dropout, mode,
         return rnn_cell_list[0]
     else:
         return tf.nn.rnn_cell.MultiRNNCell(rnn_cell_list)
+
+def get_initializer(init_op, seed, mean=0.0, stddev=0.1, bias_start=0.0):
+    """Get initializer for weights, biases."""
+    if init_op == 'truncated_normal':
+        initializer = tf.initializers.truncated_normal(
+            mean=mean, stddev=stddev, seed=seed)
+    elif init_op == 'glorot_uniform':
+        initializer = tf.glorot_uniform_initializer(seed)
+    elif init_op == 'constant':
+        initializer = tf.constant_initializer(bias_start)
+    else:
+        raise ValueError("Unknown init_op %s" % init_op)
+    
+    return initializer
+    
+def get_device_str(device_id, num_gpus):
+    """Return a device string."""
+    if num_gpus == 0:
+        return "/cpu:0"
+    device_str = "/gpu:%d" % (device_id % num_gpus)
+    return device_str
