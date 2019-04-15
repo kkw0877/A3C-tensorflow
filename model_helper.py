@@ -1,6 +1,18 @@
 import numpy as np
 import tensorflow as tf
 
+from collections import namedtuple
+
+
+class TrainModel(namedtuple(
+    "TrainModel", ("graph", "model"))):
+    pass
+
+class InferModel(namedtuple(
+    "InferModel", ("graph", "model"))):
+    pass
+
+
 def flatten(inputs):
     """Flatten inputs which is the output of the convolution operation."""
     # [batch, height, width, channels]
@@ -137,3 +149,29 @@ def get_device_str(device_id, num_gpus):
         return "/cpu:0"
     device_str = "/gpu:%d" % (device_id % num_gpus)
     return device_str
+
+def create_train_model(flags, model_creator):
+    """Create train model and graph."""
+    graph = tf.Graph()
+    with graph.as_default():
+        model = model_creator(flags, mode=tf.estimator.ModeKeys.TRAIN)
+        return TrainModel(graph=graph, model=model)
+    
+def create_infer_model(flags, model_creator):
+    """Create infer model and graph."""
+    graph = tf.Graph()
+    with graph.as_default():
+        model = model_creator(flags, mode=tf.estimator.ModeKeys.PREDICT)
+        return InferModel(graph=graph, model=model)
+    
+def create_or_load_model(model_dir, model, sess):
+    """If there's a ckpt file, load the file.
+       Otherwise, initialize variables."""
+    latest_ckpt = tf.train.latest_checkpoint(model_dir)
+    if latest_ckpt:
+        model.saver.restore(sess, latest_ckpt)
+    else:
+        sess.run(tf.global_variables_initializer())
+
+    global_step = model.global_step.eval(session=sess)
+    return model, global_step
