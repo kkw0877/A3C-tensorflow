@@ -45,7 +45,8 @@ def add_arguments(parser):
     parser.add_argument("--residual_connect", default=False, type=bool)
     
     # Model
-    parser.add_argument("--model_name", default="policy_gradient", type=str)
+    parser.add_argument("--model_name", default="policy_gradient", type=str,
+                        help="policy_gradient | a2c")
     
     # Misc
     parser.add_argument("--out_dir", default="rmsprop", type=str)

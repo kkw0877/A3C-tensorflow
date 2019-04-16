@@ -3,6 +3,7 @@ import os
 import tensorflow as tf
 
 import model
+import a2c
 import model_helper
 
 
@@ -10,6 +11,8 @@ def get_model_creator(flags):
     """Select the model class depending on flags."""
     if flags.model_name == 'policy_gradient':
         model_creator = model.PolicyGradient
+    elif flags.model_name == 'a2c':
+        model_creator = a2c.A2C
     else:
         raise ValueError("Unknown model name %s!" % flags.model_name)
         
