@@ -4,6 +4,7 @@ import tensorflow as tf
 
 import model
 import a2c
+import a3c
 import model_helper
 
 
@@ -13,6 +14,8 @@ def get_model_creator(flags):
         model_creator = model.PolicyGradient
     elif flags.model_name == 'a2c':
         model_creator = a2c.A2C
+    elif flags.model_name == 'a3c':
+        model_creator = a3c.A3C
     else:
         raise ValueError("Unknown model name %s!" % flags.model_name)
         

@@ -30,6 +30,7 @@ def add_arguments(parser):
     
     parser.add_argument("--optimizer", default="rmsprop", type=str)
     parser.add_argument("--max_gradient_norm", default=40, type=float)
+    parser.add_argument("--t_max", default=20, type=int)
     
     # Network
     parser.add_argument("--cv_num_outputs", default=16, type=int)
@@ -43,10 +44,12 @@ def add_arguments(parser):
     parser.add_argument("--num_units", default=256, type=int)
     parser.add_argument("--dropout", default=0.0, type=float)
     parser.add_argument("--residual_connect", default=False, type=bool)
+
+    parser.add_argument("--thread_num", default=8, type=int)
     
     # Model
-    parser.add_argument("--model_name", default="policy_gradient", type=str,
-                        help="policy_gradient | a2c")
+   parser.add_argument("--model_name", default="a3c", type=str,
+                        help="policy_gradient | a2c | a3c")
     
     # Misc
     parser.add_argument("--out_dir", default="rmsprop", type=str)
