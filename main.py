@@ -48,7 +48,7 @@ def add_arguments(parser):
     parser.add_argument("--thread_num", default=8, type=int)
     
     # Model
-   parser.add_argument("--model_name", default="a3c", type=str,
+    parser.add_argument("--model_name", default="a3c", type=str,
                         help="policy_gradient | a2c | a3c")
     
     # Misc
