@@ -74,7 +74,7 @@ class A2C(model.PolicyGradient):
         entropy_loss = tf.reduce_sum(policy * tf.log(policy+1e-10), axis=1)
         entropy_loss = tf.reduce_sum(entropy_loss)
         
-        total_loss = actor_loss + critic_loss*0.5 + entropy_loss*0.01
+        total_loss = actor_loss + critic_loss + entropy_loss*0.01
         return total_loss
         
     def get_action(self, sess, state, hidden):

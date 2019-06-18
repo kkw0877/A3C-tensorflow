@@ -6,7 +6,7 @@ def preprocess_image(image, height, width):
     """Change the color of the image from rgb to gray
        and then modify the size of image"""
     image = np.uint8(
-        resize(rgb2gray(image), [height, width], mode='constant'))
-    image = np.reshape(image, [height, width, 1])
+        resize(rgb2gray(image), [height, width], mode='constant')*255)
+    image = np.reshape(image, [height, width, 1])/255.
     return image
 
