@@ -6,11 +6,12 @@ Tensorflow implementation of [Asynchronous Methods for Deep Reinforcement Learni
 * For training, a global agent uses multiple different samples that multi workers get
 
 ## Prerequisites
-* python
-* tensorflow
+* python 3.6
+* tensorflow 1.12
 * [gym](https://gym.openai.com/docs/#installation)
 * numpy
 * skimage
 
 ## Result
+![video](./assets/video.gif)
 ![train_result](./assets/train_result.png)
